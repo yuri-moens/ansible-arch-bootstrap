@@ -1,0 +1,10 @@
+---
+- name: Install GDM
+  ansible.builtin.package:
+    name: gdm
+    state: present
+
+- name: Enable GDM
+  ansible.builtin.service:
+    name: gdm
+    enabled: true

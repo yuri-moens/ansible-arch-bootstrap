@@ -1,0 +1,13 @@
+---
+- name: Bootstrap Arch system
+  hosts: localhost
+  become: true
+  roles:
+    - { role: base, tags: ['base'] }
+    - { role: grub, tags: ['grub'] }
+    - { role: openssh, tags: ['openssh'] }
+    - { role: fonts, tags: ['fonts'] }
+    - { role: zsh, tags: ['zsh'] }
+    - { role: gdm, tags: ['gdm'] }
+    - { role: gnome, tags: ['gnome'] }
+    - { role: terminator, tags: ['terminator'] }

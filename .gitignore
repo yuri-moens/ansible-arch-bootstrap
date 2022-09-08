@@ -1,0 +1,5 @@
+vault_pass
+files/ssh/private/*
+!files/ssh/private/.gitkeep
+files/ssh/public/*
+!files/ssh/public/.gitkeep

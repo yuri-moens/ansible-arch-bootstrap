@@ -1,0 +1,36 @@
+# {{ ansible_managed }}
+
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+export PATH="{{ zsh.path }}"
+export EDITOR="{{ zsh.editor }}"
+ZSH=/usr/share/oh-my-zsh/
+ZSH_CUSTOM=/etc/zsh/custom/
+ZSH_THEME="powerlevel10k/powerlevel10k"
+CASE_SENSITIVE="{{ zsh.case_sensitive | string }}"
+HYPHEN_INSENSITIVE="{{ zsh.hyphen_insensitive }}"
+zstyle ':omz:update' mode disabled  # disable automatic updates
+DISABLE_MAGIC_FUNCTIONS="{{ zsh.disable_magic_functions }}"
+ENABLE_CORRECTION="{{ zsh.autocorrection }}"
+plugins=({{ zsh.plugins | join(' ') }})
+
+ZSH_CACHE_DIR=$HOME/.cache/oh-my-zsh
+if [[ ! -d $ZSH_CACHE_DIR ]]; then
+  mkdir $ZSH_CACHE_DIR
+fi
+
+source $ZSH/oh-my-zsh.sh
+[[ ! -f /etc/zsh/p10k.zsh ]] || source /etc/zsh/p10k.zsh
+source $HOME/.zshrc
+
+install () {
+	pacman -Qu archlinux-keyring && yay -Syu --noconfirm archlinux-keyring
+	yay -Sy $@
+}
+
+update () {
+	pacman -Qu archlinux-keyring && yay -Syu --noconfirm archlinux-keyring
+	yay -Syu --noconfirm
+}

@@ -1,0 +1,17 @@
+---
+- name: Install yay
+  become: true
+  become_user: "{{ user.name }}"
+  kewlfft.aur.aur:
+    name: yay
+    state: present
+  when: aur.tool == "auto" or aur.tool == "yay"
+
+- name: Install base packages
+  become: true
+  become_user: "{{ user.name }}"
+  kewlfft.aur.aur:
+    name: "{{ base_packages }}"
+    state: present
+    use: "{{ aur.tool }}"
+    update_cache: true

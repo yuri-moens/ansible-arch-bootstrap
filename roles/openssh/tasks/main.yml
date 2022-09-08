@@ -1,0 +1,55 @@
+---
+- name: Install OpenSSH
+  ansible.builtin.package:
+    name: openssh
+    state: present
+
+- name: Configure sshd_config
+  ansible.builtin.template:
+    src: sshd_config.j2
+    dest: /etc/ssh/sshd_config
+    mode: '0644'
+  notify:
+    - Restart sshd
+
+- name: Enable and start sshd
+  ansible.builtin.service:
+    name: sshd.service
+    enabled: true
+    state: started
+
+- name: Make user SSH directory
+  ansible.builtin.file:
+    path: /home/{{ user.name }}/.ssh
+    state: directory
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"
+    mode: '0700'
+
+- name: Copy user SSH private keys
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: /home/{{ user.name }}/.ssh/
+    mode: '0400'
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"
+  with_fileglob:
+    - ssh/private/*
+
+- name: Copy user SSH public keys
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: /home/{{ user.name }}/.ssh/
+    mode: '0644'
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"
+  with_fileglob:
+    - ssh/public/*
+
+- name: Add authorized keys
+  ansible.posix.authorized_key:
+    user: "{{ user.name }}"
+    state: present
+    key: "{{ lookup('file', item) }}"
+  with_fileglob:
+    - ssh/public/*

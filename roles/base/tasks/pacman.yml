@@ -1,0 +1,10 @@
+---
+- name: Copy pacman configuration
+  ansible.builtin.template:
+    src: pacman.conf.j2
+    dest: /etc/pacman.conf
+    mode: '0644'
+
+- name: Refresh package databases
+  ansible.builtin.pacman:
+    update_cache: true

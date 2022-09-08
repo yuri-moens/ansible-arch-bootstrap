@@ -1,0 +1,79 @@
+user:
+  name: ymo
+  password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          31653136323436623635653462613032663130383338373435366161306331353338326234356464
+          3761386434663135613431346262363034353266346434350a663361373635343863343730636433
+          64623562653932386361376531373132393930336534353165333532383537316265303333316561
+          3633636162306131640a613466313838343234363938373439646230313637663034393535303666
+          6438
+  uid: 1000
+  group: ymo
+  gid: 1000
+  shell: /usr/bin/zsh
+
+hostname: skoll
+
+ssh:
+  port: 22
+
+pacman:
+  parallel_downloads: 10
+  color: true
+  candy: true
+
+aur:
+  tool: yay
+
+base_packages:
+  - screen
+  - tig
+
+grub:
+  timeout: 3
+  cmdline_linux_default: loglevel=3 quiet
+  cmdline_linux: ''
+  disable_os_prober: 'false'
+
+fonts:
+  packages:
+    - noto-fonts
+    - noto-fonts-emoji
+    - cantarell-fonts
+    - ttf-meslo-nerd-font-powerlevel10k
+    - adobe-source-code-pro-fonts
+    - adobe-source-han-sans-cn-fonts
+    - adobe-source-han-sans-jp-fonts
+    - adobe-source-han-sans-kr-fonts
+    - adobe-source-han-serif-cn-fonts
+    - adobe-source-han-serif-jp-fonts
+
+zsh:
+  path: $HOME/bin:/usr/local/bin:$PATH
+  editor: vim
+  case_sensitive: 'false'
+  hyphen_insensitive: 'true'
+  disable_magic_functions: 'false'
+  autocorrection: 'true'
+  plugins:
+    - sudo
+    - gitfast
+    - zsh-syntax-highlighting
+    - zsh-autosuggestions
+
+gnome:
+  theme_packages:
+    - xcursor-breeze
+    - breeze-icons
+    - zuki-themes
+  settings:
+    - { key: '/org/gnome/desktop/interface/cursor-theme', value: "'Breeze_Snow'" }
+    - { key: '/org/gnome/desktop/interface/icon-theme', value: "'Breeze_Snow'" }
+    - { key: '/org/gnome/desktop/interface/gtk-theme', value: "'Zukitwo-dark'" }
+    - { key: '/org/gnome/desktop/interface/color-scheme', value: "'prefer-dark'" } # light: default, dark: prefer-dark
+    - { key: '/org/gnome/desktop/interface/enable-hot-corners', value: 'false' }
+    - { key: '/org/gnome/desktop/background/picture-uri', value: "'file:///usr/share/backgrounds/gnome/libadwaita-l.jpg'" }
+    - { key: '/org/gnome/desktop/background/picture-uri-dark', value: "'file:///usr/share/backgrounds/gnome/libadwaita-d.jpg'" }
+    - { key: '/org/gnome/desktop/session/idle-delay', value: 'uint32 0' } # time in seconds
+    - { key: '/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-type', value: "'nothing'" } # blank, suspend, shutdown, hibernate, interactive, nothing, logout
+    - { key: '/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-timeout', value: '3600' } # time in seconds

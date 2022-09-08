@@ -1,0 +1,57 @@
+---
+- name: Install ZSH packages
+  become: true
+  become_user: "{{ user.name }}"
+  kewlfft.aur.aur:
+    name:
+      - zsh
+      - oh-my-zsh-git
+      - zsh-autosuggestions
+      - zsh-syntax-highlighting
+      - zsh-theme-powerlevel10k-git
+    state: present
+    use: "{{ aur.tool }}"
+    update_cache: true
+
+- name: Copy system ZSH configuration
+  ansible.builtin.template:
+    src: zshrc.j2
+    dest: /etc/zsh/zshrc
+    mode: 0644
+
+- name: Create user ZSH configuration
+  ansible.builtin.file:
+    path: /home/{{ user.name }}/.zshrc
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"
+    mode: 0644
+
+- name: Copy p10k configuration
+  ansible.builtin.copy:
+    src: p10k.zsh
+    dest: /etc/zsh/p10k.zsh
+    mode: 0644
+
+- name: Make custom ZSH directories
+  ansible.builtin.file:
+    path: /etc/zsh/custom/{{ item }}
+    mode: 0755
+    state: directory
+  with_items:
+    - themes
+    - plugins
+
+- name: Link theme directory
+  ansible.builtin.file:
+    src: /usr/share/zsh-theme-powerlevel10k
+    dest: /etc/zsh/custom/themes/powerlevel10k
+    state: link
+
+- name: Link plugin directories
+  ansible.builtin.file:
+    src: /usr/share/zsh/plugins/{{ item }}
+    dest: /etc/zsh/custom/plugins/{{ item }}
+    state: link
+  with_items:
+    - zsh-autosuggestions
+    - zsh-syntax-highlighting

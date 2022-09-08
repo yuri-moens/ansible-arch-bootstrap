@@ -1,0 +1,9 @@
+---
+- name: Install fonts
+  become: true
+  become_user: "{{ user.name }}"
+  kewlfft.aur.aur:
+    name: "{{ fonts.packages }}"
+    state: present
+    use: "{{ aur.tool }}"
+    update_cache: true

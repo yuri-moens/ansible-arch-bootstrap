@@ -1,0 +1,27 @@
+---
+- name: Install AMD microcode
+  kewlfft.aur.aur:
+    name: amd-ucode
+    state: present
+    use: "{{ aur.tool }}"
+  notify: Grub mkconfig
+  vars:
+    vendor: "AuthenticAMD"
+  when: vendor in ansible_processor
+
+- name: Install Intel microcode
+  kewlfft.aur.aur:
+    name: intel-ucode
+    state: present
+    use: "{{ aur.tool }}"
+  notify: Grub mkconfig
+  vars:
+    vendor: "GenuineIntel"
+  when: vendor in ansible_processor
+
+- name: Copy grub configuration
+  ansible.builtin.template:
+    src: grub.j2
+    dest: /etc/default/grub
+    mode: 0644
+  notify: Grub mkconfig
