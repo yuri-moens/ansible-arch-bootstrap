@@ -105,3 +105,21 @@ gnome:
 gnupg:
   enable_agent: true
   emulate_ssh: true
+
+git:
+  user:
+    name: Yuri Moens
+    email: yuri.moens@gmail.com
+    signingkey: F6D51D6FE15BE924
+  urls:
+    - { url: 'ssh://git@github.com/', insteadOf: 'https://github.com/' }
+    - { url: 'ssh://git@git.nas.reisub.io/', insteadOf: 'https://git.nas.reisub.io/' }
+    - { url: 'ssh://git@bitbucket.org/', insteadOf: 'https://bitbucket.org/' }
+  aliases:
+    - { alias: 'c', command: 'commit -s' }
+    - { alias: 'amend', command: 'commit -s --amend' }
+    - { alias: 'a', command: 'add' }
+    - { alias: 'aa', command: 'add -A' }
+  gpgsign: true
+  editor: vim
+  default_branch: master

@@ -1,0 +1,75 @@
+---
+- name: Install git
+  become: true
+  become_user: "{{ user.name }}"
+  kewlfft.aur.aur:
+    name: git
+    state: present
+
+- name: Configure user name
+  become: true
+  become_user: "{{ user.name }}"
+  community.general.git_config:
+    scope: global
+    name: user.name
+    value: "{{ git.user.name }}"
+
+- name: Configure user email
+  become: true
+  become_user: "{{ user.name }}"
+  community.general.git_config:
+    scope: global
+    name: user.email
+    value: "{{ git.user.email }}"
+
+- name: Configure user signing key
+  become: true
+  become_user: "{{ user.name }}"
+  community.general.git_config:
+    scope: global
+    name: user.signingkey
+    value: "{{ git.user.signingkey }}"
+  when: git.user.signingkey is defined
+
+- name: Configure editor
+  become: true
+  become_user: "{{ user.name }}"
+  community.general.git_config:
+    scope: global
+    name: core.editor
+    value: "{{ git.editor }}"
+
+- name: Configure gpgsign on commits
+  become: true
+  become_user: "{{ user.name }}"
+  community.general.git_config:
+    scope: global
+    name: commit.gpgsign
+    value: 'true'
+  when: git.gpgsign
+
+- name: Configure default branch
+  become: true
+  become_user: "{{ user.name }}"
+  community.general.git_config:
+    scope: global
+    name: init.defaultBranch
+    value: "{{ git.default_branch }}"
+
+- name: Configure aliases
+  become: true
+  become_user: "{{ user.name }}"
+  community.general.git_config:
+    scope: global
+    name: "alias.{{ item.alias }}"
+    value: "{{ item.command }}"
+  with_items: "{{ git.aliases }}"
+
+- name: Configure urls
+  become: true
+  become_user: "{{ user.name }}"
+  community.general.git_config:
+    scope: global
+    name: "url.{{ item.url }}.insteadOf"
+    value: "{{ item.insteadOf }}"
+  with_items: "{{ git.urls }}"

@@ -11,4 +11,5 @@
     - { role: zsh, tags: ['zsh'] }
     - { role: gdm, tags: ['gdm'] }
     - { role: gnome, tags: ['gnome'] }
+    - { role: git, tags: ['git'] }
     - { role: terminator, tags: ['terminator'] }

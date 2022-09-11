@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  role_name: git
+  description: Ansible role for setting up git.
+  author: Yuri Moens
+  company: Reisub
+  license: MIT
+  issue_tracker_url: https://github.com/yuri-moens/arch-bootstrap/issues
+  min_ansible_version: '2.9'
+
+  platforms:
+    - name: ArchLinux
+      versions:
+        - all
+
+  galaxy_tags: []
+
+dependencies: []
