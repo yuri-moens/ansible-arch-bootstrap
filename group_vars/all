@@ -26,6 +26,7 @@ aur:
   tool: yay
 
 base_packages:
+  - openbsd-netcat
   - screen
   - tig
 
@@ -123,3 +124,7 @@ git:
   gpgsign: true
   editor: vim
   default_branch: master
+
+networkmanager:
+  extra_packages:
+    - networkmanager-openvpn
