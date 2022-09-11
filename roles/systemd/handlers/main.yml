@@ -1,0 +1,10 @@
+---
+- name: Stop user systemd instance
+  ansible.builtin.systemd:
+    name: "user@{{ user.uid }}"
+    state: stopped
+  notify: Stop systemd per-user instance
+
+- name: Reload systemd config
+  ansible.builtin.systemd:
+    daemon_reload: true
