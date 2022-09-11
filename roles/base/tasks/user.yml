@@ -27,3 +27,17 @@
     name: root
     shell: "{{ user.shell }}"
   when: user.shell == "/usr/bin/zsh"
+
+- name: Create user socket directory
+  ansible.builtin.file:
+    path: /run/user/{{ user.uid }}
+    state: directory
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"
+    mode: 0700
+
+- name: Start user systemd instance
+  ansible.builtin.systemd:
+    name: "user@{{ user.uid }}"
+    state: started
+  notify: Stop systemd per-user instance
