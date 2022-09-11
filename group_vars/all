@@ -26,9 +26,17 @@ aur:
   tool: yay
 
 base_packages:
+  - brave-bin
+  - firefox
   - openbsd-netcat
   - screen
   - tig
+  - virtualbox
+  - virtualbox-host-modules-arch
+
+networkmanager:
+  extra_packages:
+    - networkmanager-openvpn
 
 grub:
   timeout: 3
@@ -48,6 +56,7 @@ fonts:
     - adobe-source-han-sans-kr-fonts
     - adobe-source-han-serif-cn-fonts
     - adobe-source-han-serif-jp-fonts
+    - ttf-liberation
 
 zsh:
   path: $HOME/bin:/usr/local/bin:$PATH
@@ -124,7 +133,3 @@ git:
   gpgsign: true
   editor: vim
   default_branch: master
-
-networkmanager:
-  extra_packages:
-    - networkmanager-openvpn
