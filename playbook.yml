@@ -4,6 +4,7 @@
   become: true
   roles:
     - { role: base, tags: ['base'] }
+    - { role: gnupg, tags: ['gnupg'] }
     - { role: grub, tags: ['grub'] }
     - { role: openssh, tags: ['openssh'] }
     - { role: fonts, tags: ['fonts'] }

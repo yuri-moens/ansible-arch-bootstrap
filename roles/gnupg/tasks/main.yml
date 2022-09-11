@@ -1,0 +1,43 @@
+---
+- name: Install GnuPG
+  become: true
+  become_user: "{{ user.name }}"
+  kewlfft.aur.aur:
+    name: gnupg
+    state: present
+
+- name: Enable gpg-agent.socket
+  become: true
+  become_user: "{{ user.name }}"
+  ansible.builtin.systemd:
+    name: gpg-agent.socket
+    scope: user
+    enabled: true
+    state: started
+  environment:
+    XDG_RUNTIME_DIR: "/run/user/{{ user.uid }}"
+  when: gnupg.enable_agent
+
+- name: Enable dirmngr.socket
+  become: true
+  become_user: "{{ user.name }}"
+  ansible.builtin.systemd:
+    name: dirmngr.socket
+    scope: user
+    enabled: true
+    state: started
+  environment:
+    XDG_RUNTIME_DIR: "/run/user/{{ user.uid }}"
+  when: gnupg.enable_agent
+
+- name: Enable gpg-agent-ssh.socket
+  become: true
+  become_user: "{{ user.name }}"
+  ansible.builtin.systemd:
+    name: gpg-agent-ssh.socket
+    scope: user
+    enabled: true
+    state: started
+  environment:
+    XDG_RUNTIME_DIR: "/run/user/{{ user.uid }}"
+  when: gnupg.enable_agent and gnupg.emulate_ssh
