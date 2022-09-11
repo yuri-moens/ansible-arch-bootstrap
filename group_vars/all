@@ -75,5 +75,29 @@ gnome:
     - { key: '/org/gnome/desktop/background/picture-uri', value: "'file:///usr/share/backgrounds/gnome/libadwaita-l.jpg'" }
     - { key: '/org/gnome/desktop/background/picture-uri-dark', value: "'file:///usr/share/backgrounds/gnome/libadwaita-d.jpg'" }
     - { key: '/org/gnome/desktop/session/idle-delay', value: 'uint32 0' } # time in seconds
+    - { key: '/org/gnome/desktop/input-sources/xkb-options', value: "['lv3:ralt_switch', 'compose:rctrl']" }
     - { key: '/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-type', value: "'nothing'" } # blank, suspend, shutdown, hibernate, interactive, nothing, logout
     - { key: '/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-timeout', value: '3600' } # time in seconds
+    - { key: '/org/gnome/settings-daemon/plugins/peripherals/keyboard/numlock-state', value: 'true' }
+    - { key: '/org/gnome/settings-daemon/plugins/peripherals/mouse/accel-profil', value: "'default'" }
+    - { key: '/org/gnome/settings-daemon/plugins/peripherals/mouse/speed', value: "-0.23" }
+    - { key: '/org/gnome/desktop/wm/keybindings/cycle-group', value: "['<Super>Tab']" }
+    - { key: '/org/gnome/desktop/wm/keybindings/cycle-group-backward', value: "['<Shift><Super>Tab']" }
+    - { key: '/org/gnome/desktop/wm/keybindings/cycle-windows', value: "@as []" }
+    - { key: '/org/gnome/desktop/wm/keybindings/cycle-windows-backward', value: "@as []" }
+    - { key: '/org/gnome/desktop/wm/keybindings/switch-application', value: "['<Control><Alt>Tab']" }
+    - { key: '/org/gnome/desktop/wm/keybindings/switch-application-backward', value: "['<Shift><Control><Alt>Tab']" }
+    - { key: '/org/gnome/desktop/wm/keybindings/switch-group', value: "['<Super>grave']" }
+    - { key: '/org/gnome/desktop/wm/keybindings/switch-group-backward', value: "['<Shift><Super>grave']" }
+    - { key: '/org/gnome/desktop/wm/keybindings/switch-panels', value: "@as []" }
+    - { key: '/org/gnome/desktop/wm/keybindings/switch-panels-backward', value: "@as []" }
+    - { key: '/org/gnome/desktop/wm/keybindings/switch-windows', value: "['<Alt>Tab']" }
+    - { key: '/org/gnome/desktop/wm/keybindings/switch-windows-backward', value: "['<Shift><Alt>Tab']" }
+    - { key: '/org/gnome/settings-daemon/plugins/media-keys/home', value: "['<Super>e']" }
+    - { key: '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings', value: "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']" }
+    - { key: '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding', value: "'<Super>Return'" }
+    - { key: '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command', value: "'/usr/bin/terminator'" }
+    - { key: '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name', value: "'Terminator'" }
+    - { key: '/org/gnome/shell/keybindings/show-screenshot-ui', value: "['<Super>s']" }
+    - { key: '/org/gnome/shell/keybindings/toggle-application-view', value: "['<Super>d']" }
+    - { key: '/org/gnome/shell/keybindings/toggle-overview', value: "@as []" }
