@@ -27,6 +27,7 @@ aur:
 
 base_packages:
   - brave-bin
+  - discord
   - firefox
   - openbsd-netcat
   - screen
