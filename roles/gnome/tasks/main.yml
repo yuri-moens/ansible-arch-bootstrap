@@ -11,13 +11,51 @@
     state: present
     use: "{{ aur.tool }}"
 
-- name: Install theme packages
+- name: Install extra packages
   become: true
   become_user: "{{ user.name }}"
   kewlfft.aur.aur:
-    name: "{{ gnome.theme_packages }}"
+    name: "{{ gnome.extra_packages }}"
     state: present
     use: "{{ aur.tool }}"
+
+- name: Parse GNOME Shell version
+  ansible.builtin.shell:
+    cmd: |
+      set -o pipefail
+      gnome-shell --version | sed 's/[^0-9.]*\([0-9]*\(\.[0-9]*\)\).*/\1/'
+    executable: /bin/bash
+  register: gnome_shell_version
+  changed_when: false
+
+- name: Set Gnome Shell version as parameter
+  ansible.builtin.set_fact:
+    gnome_shell_version: "{{ gnome_shell_version.stdout }}"
+
+- name: Load Gnome extension information
+  include_tasks: get_extension_info.yml
+  loop: "{{ gnome.extensions }}"
+
+- name: Download GNOME Shell extensions
+  ansible.builtin.get_url:
+    url: "{{ item.url }}"
+    dest: "/tmp/{{ item.name }}.zip"
+    mode: '0644'
+  loop: "{{ gnome_extensions_full | default([]) }}"
+  loop_control:
+    label: "{{ item.name }}"
+
+- name: Install GNOME Shell extension
+  become: true
+  become_user: "{{ user.name }}"
+  ansible.builtin.command:
+    cmd: "gnome-extensions install /tmp/{{ item.name }}.zip"
+  loop: "{{ gnome_extensions_full | default([]) }}"
+  loop_control:
+    label: "{{ item.name }}"
+  register: install_output
+  changed_when: install_output.rc == 0
+  failed_when: false
 
 - name: Configure GNOME settings
   become: true
