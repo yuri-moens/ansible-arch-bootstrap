@@ -1,0 +1,41 @@
+---
+- name: Install Nextcloud client
+  become: true
+  become_user: "{{ user.name }}"
+  kewlfft.aur.aur:
+    name: nextcloud-client
+    state: present
+
+- name: Make Nextcloud configuration directory
+  ansible.builtin.file:
+    path: "/home/{{ user.name }}/.config/Nextcloud"
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"
+    mode: '0755'
+    state: directory
+
+- name: Make mount point directories
+  ansible.builtin.file:
+    path: "{{ item.local_path }}"
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"
+    mode: '0755'
+    state: directory
+  with_items: "{{ nextcloud.mounts }}"
+
+- name: Configure Nextcloud
+  ansible.builtin.template:
+    src: nextcloud.cfg.j2
+    dest: "/home/{{ user.name }}/.config/Nextcloud/nextcloud.cfg"
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"
+    mode: '0644'
+    force: false # only template when file doesn't exist yet
+
+- name: Copy autostart file
+  ansible.builtin.copy:
+    src: autostart
+    dest: "/home/{{ user.name }}/.config"
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"
+    mode: '0644'

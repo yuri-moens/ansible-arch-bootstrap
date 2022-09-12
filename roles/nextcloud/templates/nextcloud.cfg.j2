@@ -1,0 +1,15 @@
+[Accounts]
+{% for mount in nextcloud.mounts %}
+0\Folders\{{ loop.index }}\localPath={{ mount.local_path }}
+0\Folders\{{ loop.index }}\targetPath={{ mount.remote_path }}
+0\Folders\{{ loop.index }}\version=2
+0\Folders\{{ loop.index }}\ignoreHiddenFiles=false
+0\Folders\{{ loop.index }}\paused=false
+0\Folders\{{ loop.index }}\virtualFilesMode=off
+{% endfor %}
+0\authType=webflow
+0\dav_user={{ nextcloud.username }}
+0\webflow_user={{ nextcloud.username }}
+0\url={{ nextcloud.server }}
+0\version=1
+version=2

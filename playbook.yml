@@ -13,4 +13,5 @@
     - { role: gdm, tags: ['gdm'] }
     - { role: gnome, tags: ['gnome'] }
     - { role: git, tags: ['git'] }
+    - { role: nextcloud, tags: ['nextcloud'], when: nextcloud.enabled }
     - { role: terminator, tags: ['terminator'] }

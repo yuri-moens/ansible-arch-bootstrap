@@ -189,3 +189,13 @@ git:
   gpgsign: true
   editor: vim
   default_branch: master
+
+nextcloud:
+  enabled: true
+  username: ymo
+  server: https://cloud.nas.reisub.io
+  mounts:
+    - remote_path: pictures
+      local_path: /home/{{ user.name }}/Pictures
+    - remote_path: work
+      local_path: /home/{{ user.name }}/work
