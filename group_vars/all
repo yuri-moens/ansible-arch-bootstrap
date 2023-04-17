@@ -33,7 +33,6 @@ base_packages:
   - screen
   - tig
   - virtualbox
-  - virtualbox-host-modules-arch
 
 networkmanager:
   extra_packages:
