@@ -22,6 +22,7 @@
 - name: Create user ZSH configuration
   ansible.builtin.file:
     path: /home/{{ user.name }}/.zshrc
+    state: touch
     owner: "{{ user.name }}"
     group: "{{ user.group }}"
     mode: 0644
