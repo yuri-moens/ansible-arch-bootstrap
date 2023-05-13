@@ -10,7 +10,7 @@
     - { role: grub, tags: ['grub'] }
     - { role: openssh, tags: ['openssh'] }
     - { role: fonts, tags: ['fonts'] }
-    - { role: zsh, tags: ['zsh'] }
+    - { role: zsh, tags: ['zsh'], when: user.shell == "/usr/bin/zsh" }
     - { role: gdm, tags: ['gdm'] }
     - { role: gnome, tags: ['gnome'] }
     - { role: git, tags: ['git'] }
