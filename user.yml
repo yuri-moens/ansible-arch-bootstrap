@@ -1,0 +1,8 @@
+---
+- name: Create and configure user
+  hosts: localhost
+  vars_prompt:
+    - name: password
+      prompt: Enter desired user password
+  roles:
+    - { role: user }

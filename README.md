@@ -6,30 +6,27 @@ This is an Ansible playbook to bootstrap a fresh Arch install. This should be ru
 
 Configuration is done in the `group_vars/all` file. The user password should be encrypted using Ansible vault.
 
-1. Generate vault password
-
-```bash
-openssl rand -base64 2048 > vault_pass
-```
-
-2. Encrypt your password
-
-```bash
-ansible-vault encrypt_string --encrypt-vault-id default --stdin-name 'password'
-# enter your password without a newline, press CTRL-D twice
-```
-
-3. Copy the `password: ...` output under `user:` in `groups_vars/all`
-
-4. Put your SSH private and public keys under `files/ssh/private` and `files/ssh/public`
+Put your SSH private and public keys under `files/ssh/private` and `files/ssh/public`
 
 ## Running
 
 ### Install required roles
 
 ```bash
-ansible-galaxy install -r required.yml
+ansible-galaxy install -r requirements.yml
 ```
+
+### Create user
+
+This playbook should be run as root.
+
+```bash
+ansible-playbook user.yml
+```
+
+### Run playbook
+
+This playbook should be run as your normal user.
 
 ```bash
 ansible-playbook playbook.yml

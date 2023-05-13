@@ -3,6 +3,7 @@
   hosts: localhost
   become: true
   roles:
+    - { role: user, tags: ['user'] }
     - { role: base, tags: ['base'] }
     - { role: networkmanager, tags: ['networkmanager'] }
     - { role: gnupg, tags: ['gnupg'] }

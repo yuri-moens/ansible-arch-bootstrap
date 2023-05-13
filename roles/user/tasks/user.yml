@@ -1,32 +1,26 @@
 ---
+- name: Install Python passlib
+  ansible.builtin.package:
+    name: python-passlib
+    state: present
+
 - name: Create group
   ansible.builtin.group:
     name: "{{ user.group }}"
     gid: "{{ user.gid }}"
     state: present
 
-- name: Install zsh
-  ansible.builtin.package:
-    name: "zsh"
-    state: present
-  when: user.shell == "/usr/bin/zsh"
-
 - name: Create user
   ansible.builtin.user:
     name: "{{ user.name }}"
     group: "{{ user.group }}"
-    password: "{{ user.password | string | password_hash('sha512') }}"
+    password: "{{ password | string | password_hash('sha512') }}"
     update_password: on_create
     shell: "{{ user.shell }}"
     uid: "{{ user.uid }}"
     groups: wheel
     append: true
-
-- name: Set root shell to ZSH
-  ansible.builtin.user:
-    name: root
-    shell: "{{ user.shell }}"
-  when: user.shell == "/usr/bin/zsh"
+  when: password is defined
 
 - name: Create user socket directory
   ansible.builtin.file:
@@ -40,4 +34,4 @@
   ansible.builtin.systemd:
     name: "user@{{ user.uid }}"
     state: started
-  notify: Stop systemd per-user instance
+  notify: Stop user systemd instance
