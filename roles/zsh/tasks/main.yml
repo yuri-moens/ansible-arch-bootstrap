@@ -13,6 +13,16 @@
     use: "{{ aur.tool }}"
     update_cache: true
 
+- name: Set root shell to ZSH
+  ansible.builtin.user:
+    name: root
+    shell: "{{ user.shell }}"
+
+- name: Set user shell to ZSH
+  ansible.builtin.user:
+    name: user
+    shell: "{{ user.shell }}"
+
 - name: Copy system ZSH configuration
   ansible.builtin.template:
     src: zshrc.j2
